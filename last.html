@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вибір найкращого відео</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #voteCount {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Вибір найкращого відео</h1>
+
+    <!-- Відео ФраМ Шепетівка -->
+    <h2>ФраМ Шепетівка</h2>
+    <p id="voteCountShepetivka">Кількість голосів: <span id="countShepetivka">0</span></p>
+    <button onclick="vote('Shepetivka', 'voteCountShepetivka', 'countShepetivka')">Проголосувати за ФраМ Шепетівка</button>
+
+    <!-- Відео ФраМ Шаргород -->
+    <h2>ФраМ Шаргород</h2>
+    <p id="voteCountShargorod">Кількість голосів: <span id="countShargorod">0</span></p>
+    <button onclick="vote('Shargorod', 'voteCountShargorod', 'countShargorod')">Проголосувати за ФраМ Шаргород</button>
+
+    <!-- Відео ФраМ Житомир -->
+    <h2>ФраМ Житомир</h2>
+    <p id="voteCountZhytomyr">Кількість голосів: <span id="countZhytomyr">0</span></p>
+    <button onclick="vote('Zhytomyr', 'voteCountZhytomyr', 'countZhytomyr')">Проголосувати за ФраМ Житомир</button>
+
+    <!-- Відео ФраМ Полонне -->
+    <h2>ФраМ Полонне</h2>
+    <p id="voteCountPolonne">Кількість голосів: <span id="countPolonne">0</span></p>
+    <button onclick="vote('Polonne', 'voteCountPolonne', 'countPolonne')">Проголосувати за ФраМ Полонне</button>
+
+    <script>
+        // Функція для обробки голосування
+        function vote(videoId, voteCountId, countId) {
+            // Перевіряємо, чи користувач вже голосував
+            var hasVoted = localStorage.getItem('voted');
+
+            if (!hasVoted) {
+                // Отримуємо поточну кількість голосів
+                var currentCount = parseInt(document.getElementById(countId).innerText);
+
+                // Збільшуємо кількість голосів на 1
+                var newCount = currentCount + 1;
+
+                // Оновлюємо відображення кількості голосів
+                document.getElementById(countId).innerText = newCount;
+
+                // Зберігаємо інформацію, що користувач вже голосував
+                localStorage.setItem('voted', true);
+
+                // Деактивуємо кнопку після голосування
+                document.querySelector('button[data-id="' + videoId + '"]').disabled = true;
+
+                // Тут ви також можете відправити дані на сервер для зберігання, наприклад, за допомогою AJAX-запиту
+                // Наприклад, використовуючи бібліотеку jQuery:
+                // $.post('здесь_ваш_URL', { videoId: videoId, voteCount: newCount });
+            } else {
+                alert('Ви вже голосували!');
+            }
+        }
+    </script>
+
+</body>
+</html>
